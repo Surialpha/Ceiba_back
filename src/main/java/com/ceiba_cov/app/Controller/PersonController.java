@@ -70,19 +70,19 @@ public class PersonController {
 			// Validate if DNI already Exist
 			if (getByCedula(person.getCedula())) {
 				String msg = "ya existe esta cedula registrada, verifícala de nuevo";
-				return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(msg, HttpStatus.NOT_ACCEPTABLE);
 			}
 			// Validate if person is and adult
 			if (validarEdad(person.getFechaNac())) {
 				String msg = "El usuario es menor de edad y no puede ser registrado";
-				return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>(msg, HttpStatus.NOT_ACCEPTABLE);
 			}
 
 			return ResponseEntity.status(HttpStatus.CREATED).body(personService.save(person));
 
 		} catch (Exception e) {
 			String msg = "Algo salió mal, vuelve a intentarlo";
-			return new ResponseEntity<>(msg, HttpStatus.CONFLICT);
+			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 	}
 
