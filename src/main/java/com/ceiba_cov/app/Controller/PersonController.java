@@ -36,44 +36,18 @@ public class PersonController {
 		return ResponseEntity.status(HttpStatus.OK).body(personService.findAll());
 	}
 
-	// Select by DNI, return true of false, depending if the person exist
-	public Boolean getByCedula(Long id) {
-
-		Optional<Person> result = personService.findByCedula(id);
-
-		if (!result.isPresent()) {
-			return false;
-		}
-
-		return true;
-	}
-
-	public Boolean validarEdad(Date date) {
-
-		Instant instant = date.toInstant();
-		ZonedDateTime zone = instant.atZone(ZoneId.systemDefault());
-		LocalDate fechaRecibida = zone.toLocalDate();
-		Period period = Period.between(fechaRecibida, LocalDate.now());
-
-		if (period.getYears() >= 18) {
-			return false;
-		} else {
-			return true;
-		}
-
-	}
 
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody Person person) {
 		try {
 
 			// Validate if DNI already Exist
-			if (getByCedula(person.getCedula())) {
+			if (personService.getByCedula(person.getCedula())) {
 				String msg = "ya existe esta cedula registrada, verifícala de nuevo";
 				return new ResponseEntity<>(msg, HttpStatus.NOT_ACCEPTABLE);
 			}
 			// Validate if person is and adult
-			if (validarEdad(person.getFechaNac())) {
+			if (personService.validarEdad(person.getFechaNac())) {
 				String msg = "El usuario es menor de edad y no puede ser registrado";
 				return new ResponseEntity<>(msg, HttpStatus.NOT_ACCEPTABLE);
 			}
