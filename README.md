@@ -1,11 +1,13 @@
-# Ceiba_back
+# Ceiba_back 
 Cambiar la configuración principal de la aplicación para no tener problemas
 
 --spring.datasource.url=jdbc:mysql://localhost:3306/[DATABASE]?useSSL=false&PublicKeyRetrieval=true&serverTimezone=America/Bogota  
 --spring.datasource.username=[USUARIO]  
---spring.datasource.password=[CONTRASEÑA]      
+--spring.datasource.password=[CONTRASEÑA]  
 
-# Puerto de salida está por defecto: 3306
+# http://localhost:8080/api/person
+
+# Puerto de salida está por defecto base de datos: 3306
 
 El proyecto está generado con JPA , por ende, solo es necesario crear la base de datos en MySQL y el proyecto en su ejecución, hará un create - drop para asegurar que no haya nada y crear las tablas necesarias como se definió en el modelo
 
